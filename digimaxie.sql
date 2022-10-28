@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2022 at 01:52 PM
+-- Generation Time: Oct 28, 2022 at 10:59 AM
 -- Server version: 10.4.25-MariaDB
 -- PHP Version: 8.1.10
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `edukidos`
+-- Database: `digimaxie`
 --
 
 -- --------------------------------------------------------
@@ -29,20 +29,10 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `bahan` (
   `id_bahan` varchar(255) NOT NULL,
-  `id_kategori` int(255) NOT NULL,
   `nama_bahan` varchar(255) NOT NULL,
   `harga_jual` bigint(255) NOT NULL,
   `harga_beli` bigint(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `bahan`
---
-
-INSERT INTO `bahan` (`id_bahan`, `id_kategori`, `nama_bahan`, `harga_jual`, `harga_beli`) VALUES
-('631ee7b6d7296', 3, 'Flexy Korea 450', 80000, 60000),
-('631ee7d6db8cf', 3, 'Flexy China 380', 60000, 40000),
-('631ee7e8ee99a', 1, 'AC 230', 20000, 15000);
 
 -- --------------------------------------------------------
 
@@ -54,36 +44,9 @@ CREATE TABLE `customer` (
   `id` varchar(255) NOT NULL,
   `nama_customer` varchar(255) NOT NULL,
   `alamat` text NOT NULL,
-  `email` varchar(255) NOT NULL
+  `email` varchar(255) NOT NULL,
+  `no_hp` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `customer`
---
-
-INSERT INTO `customer` (`id`, `nama_customer`, `alamat`, `email`) VALUES
-('631ee80d1f5d9', 'Mas Adul', 'Jl. Kebaksdbka laksdjla laksj dlkajs dlkalsk jdaslk jl askjdhak aksdjhakl laskdjalk laskd as;ldk laksjdlak lkasd lkjasd', 'abdul@gmail.com'),
-('631fead535095', 'Rafii Yuuki', 'Banten', 'rafi@gmail.com');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `kategori`
---
-
-CREATE TABLE `kategori` (
-  `id` varchar(255) NOT NULL,
-  `nama_kategori` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `kategori`
---
-
-INSERT INTO `kategori` (`id`, `nama_kategori`) VALUES
-('1', 'A3'),
-('2', 'Indoor'),
-('3', 'Outdoor');
 
 -- --------------------------------------------------------
 
@@ -99,7 +62,6 @@ CREATE TABLE `orderan` (
   `nama_kerja` varchar(255) NOT NULL,
   `urgensi` int(1) NOT NULL,
   `nama` varchar(255) NOT NULL,
-  `kategori` varchar(255) NOT NULL,
   `id_barang` varchar(255) NOT NULL,
   `jumlah` int(255) NOT NULL,
   `file` text NOT NULL,
@@ -165,13 +127,6 @@ CREATE TABLE `pembelian` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `pembelian`
---
-
-INSERT INTO `pembelian` (`id_beli`, `id_barang`, `no_po`, `jumlah`, `tgl_beli`) VALUES
-('63579e1e421ca', '631ee7d6db8cf', 'PO001', 10, '2022-10-25');
-
---
 -- Triggers `pembelian`
 --
 DELIMITER $$
@@ -195,13 +150,6 @@ CREATE TABLE `rekening` (
   `norek` text NOT NULL,
   `bank` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
---
--- Dumping data for table `rekening`
---
-
-INSERT INTO `rekening` (`id`, `atas_nama`, `norek`, `bank`) VALUES
-('631ee85db3b09', 'PT. Edukidos Madina Creativa', '541738591', 'BCA');
 
 -- --------------------------------------------------------
 
@@ -306,12 +254,6 @@ ALTER TABLE `bahan`
 -- Indexes for table `customer`
 --
 ALTER TABLE `customer`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `kategori`
---
-ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id`);
 
 --
