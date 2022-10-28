@@ -9,11 +9,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Edukidos Digital Printing App</title>
+    <title>PT Digimaxie</title>
     <!-- <title>Edukidos&nbspDigital&nbspPrinting&nbspApp&nbsp|&nbsp</title> -->
 
     <!-- logo -->
-    <link rel="icon" href="<?php echo base_url('assets/img/edukidos_logo.png') ?>" type="image/png">
+    <link rel="icon" href="<?php echo base_url('assets/img/logo_digimaxie-rbg.png') ?>" type="image/png">
     <!-- Custom fonts for this template-->
     <link href="<?= base_url('');?>/assets/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link

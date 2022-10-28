@@ -167,7 +167,7 @@ public function jumlahOrderOutdoor()
 public function finishedJob()
   {
     $this->db->select('*');
-    $kategori = array('status_bayar'=> 1, 'status' => 3);
+    $kategori = array('status_bayar'=> 1, 'status' => 6);
     $this->db->where($kategori);
     $this->db->from('orderan');
     $this->db->join('customer','customer.id = orderan.nama');   
@@ -219,7 +219,6 @@ public function getAllStok()
     $this->db->select('*');
     $this->db->from('stok');
     $this->db->join('bahan', 'stok.id_barang = bahan.id_bahan');
-    $this->db->join('kategori', 'bahan.id_kategori = kategori.id');   
     $query = $this->db->get();
     return $query;
 }

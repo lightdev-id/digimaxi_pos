@@ -37,7 +37,7 @@
 				<table class="table mb-0">
 					<tr>
 						<td style="border-top: 0px; text-align: center; vertical-align: middle;">
-							<img src="<?php echo base_url('assets/img/edukidos_logo.png') ?>" style="width: 33%; max-width: 300px; float:left;" />
+							<img src="<?php echo base_url('assets/img/logo_digimaxie-rbg.png') ?>" style="width: 33%; max-width: 300px; float:left;" />
 							<h1><b>SURAT JALAN</b></h1>
 						</td>
 						<td class="text-right" style="border-top: 0px;">

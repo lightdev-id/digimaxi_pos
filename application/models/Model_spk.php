@@ -3,23 +3,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Model_spk extends CI_Model {
 
-public function getReadya3()
+public function getReadyPrinting()
 	{
 	$this->db->select('*');
-	$kategori = array('kategori' => '1','status' => 0);
-	$this->db->where($kategori);
+	$status = array('status' => 0);
+	$this->db->where($status);
     $this->db->from('orderan');
     $this->db->join('customer','customer.id = orderan.nama');
-    $this->db->join('kategori','orderan.kategori = kategori.id','LEFT');      
     $query = $this->db->get();
     return $query;
 }
 
-public function getReadyIndoor()
+public function getReadyHeating()
 	{
 	$this->db->select('*');
-	$kategori = array('kategori' => '2','status' => 0);
-	$this->db->where($kategori);
+	$status = array('status' => 2);
+	$this->db->where($status);
     $this->db->from('orderan');
     $this->db->join('customer','customer.id = orderan.nama');      
     $query = $this->db->get();

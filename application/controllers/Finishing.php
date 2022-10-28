@@ -13,15 +13,6 @@ class Finishing extends CI_Controller
 	{
 	}
 
-	public function packing()
-	{
-		$data['finishPacking'] = $this->Model_finishing->getFinishingPacking()->result();
-
-		$this->load->view('dashboard/_partials/header');
-		$this->load->view('dashboard/_partials/sidebar');
-		$this->load->view('finishing/packing', $data);
-		$this->load->view('dashboard/_partials/footer');
-	}
 	public function cutting()
 	{
 		$data['finishCutting'] = $this->Model_finishing->getFinishingCutting()->result();
@@ -32,32 +23,23 @@ class Finishing extends CI_Controller
 		$this->load->view('dashboard/_partials/footer');
 	}
 
-	public function seaming()
+	public function packing()
 	{
-		$data['finishSeaming'] = $this->Model_finishing->getFinishingSeaming()->result();
+		$data['finishPacking'] = $this->Model_finishing->getFinishingPacking()->result();
 
 		$this->load->view('dashboard/_partials/header');
 		$this->load->view('dashboard/_partials/sidebar');
-		$this->load->view('finishing/seaming', $data);
-		$this->load->view('dashboard/_partials/footer');
-	}
-	
-	public function jilid()
-	{
-		$data['finishJilid'] = $this->Model_finishing->getFinishingJilid()->result();
-
-		$this->load->view('dashboard/_partials/header');
-		$this->load->view('dashboard/_partials/sidebar');
-		$this->load->view('finishing/jilid', $data);
+		$this->load->view('finishing/packing', $data);
 		$this->load->view('dashboard/_partials/footer');
 	}
 
-	public function finishing()
+	public function finishing_cutting()
 	{
 		$id_order = $this->uri->segment(3);
 
 		$data = array(
-			'status' => 3,
+			'status' => 5,
+			'finishing' => 'packing'
 		);
 
 		$where = array(
@@ -65,8 +47,26 @@ class Finishing extends CI_Controller
 		);
 
 		$this->Model_finishing->update_status_finishing($where, $data, 'orderan');
-		$this->session->set_flashdata('kerja_selesai_finishing', ' ');
-		redirect('Beranda/surat_jalan');
+		$this->session->set_flashdata('finishing_cutting', ' ');
+		redirect('Finishing/cutting');
+	}
+
+	public function finishing_packing()
+	{
+		$id_order = $this->uri->segment(3);
+
+		$data = array(
+			'status' => 6,
+			'finishing' => 'selesai'
+		);
+
+		$where = array(
+			'id_order' => $id_order
+		);
+
+		$this->Model_finishing->update_status_finishing($where, $data, 'orderan');
+		$this->session->set_flashdata('finishing_packing', ' ');
+		redirect('Finishing/packing');
 	}
 }
 

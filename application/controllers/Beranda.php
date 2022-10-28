@@ -45,9 +45,6 @@ class Beranda extends CI_Controller
     $data['total_orderFinish'] = $this->Model_order->jumlahOrderFinish();
     $data['total_orderComplain'] = $this->Model_order->jumlahOrderComplain();
     $data['total_orderUrgent'] = $this->Model_order->jumlahOrderUrgent();
-    $data['total_orderA3'] = $this->Model_order->jumlahOrderA3();
-    $data['total_orderIndoor'] = $this->Model_order->jumlahOrderIndoor();
-    $data['total_orderOutdoor'] = $this->Model_order->jumlahOrderOutdoor();
 
     $this->load->view('dashboard/_partials/header');
     $this->load->view('dashboard/_partials/sidebar');
@@ -122,7 +119,7 @@ class Beranda extends CI_Controller
     );
 
     $data2 = array (
-      'status' => 4
+      'status' => 7
     );
 
     $where2 = array(

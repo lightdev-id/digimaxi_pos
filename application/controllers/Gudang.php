@@ -65,7 +65,6 @@ class Gudang extends CI_Controller {
 	public function tambah_stok()
 	{
 		$data['bahanBaku'] = $this->Model_order->get_bahanBaku();
-		$data['kategori'] = $this->Model_order->get_kategori();
 
 		$this->load->view('dashboard/_partials/header');
 		$this->load->view('dashboard/_partials/sidebar');
@@ -77,7 +76,7 @@ class Gudang extends CI_Controller {
 	{
 		$id_beli= uniqid();
 		$no_po = $this->input->post('no_po');
-		$id_barang = $this->input->post('id_barang');
+		$id_barang = $this->input->post('id_bahan');
 		$jumlah = $this->input->post('jumlah');
 		$tanggal = $this->input->post('tanggal');
 
@@ -100,6 +99,7 @@ class Gudang extends CI_Controller {
 		if ($b->num_rows() > 0) {
 			$this->db->where('id_barang', $id_barang);
 			$this->Model_gudang->input_data($data, 'pembelian');
+			$this->Model_gudang->input_data($data2, 'stok');
 			$this->session->set_flashdata('pembelian_sukses', ' ');
 			redirect('Beranda/stok');
 		} else {;

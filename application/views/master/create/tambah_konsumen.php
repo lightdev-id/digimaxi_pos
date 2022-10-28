@@ -10,17 +10,24 @@
    <form action="<?= base_url('Master/konsumen_save'); ?>" method="post">
       <div class="row">
 
-         <div class="col-md-6">
+         <div class="col-md-4">
             <div class="form-group">
                <label for="last">NAMA</label>
                <input type="text" class="form-control" name="nama_customer" required>
             </div>
          </div>
 
-         <div class="col-md-6">
+         <div class="col-md-4">
             <div class="form-group">
                <label for="last">EMAIL</label>
                <input type="email" class="form-control" name="email" required>
+            </div>
+         </div>
+
+         <div class="col-md-4">
+            <div class="form-group">
+               <label for="last">NO. HP</label>
+               <input type="number" class="form-control" name="no_hp" required>
             </div>
          </div>
 

@@ -85,8 +85,6 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Kategori</th>
-
           <th>Nama Bahan</th>
           <th>Stok</th>
           <th>Harga Beli</th>
@@ -100,8 +98,6 @@
         ?>
           <tr>
             <td><?php echo $b->id_bahan ?></td>
-            <td><?= $b->nama_kategori ?></td>
-
             <td><?= $b->nama_bahan ?></td>
             <?php if ($b->stok == 0) : ?>
               <td style="color: red">Stok Habis</td>

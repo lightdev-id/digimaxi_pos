@@ -23,7 +23,6 @@ class Order extends CI_Controller {
 	public function input_order()
 	{
 	$data['customer'] = $this->Model_order->get_customer();
-	$data['kategori'] = $this->Model_order->get_kategori();
 	$data['bahanBaku'] = $this->Model_order->get_bahanBaku();
 	$this->load->view('dashboard/_partials/header');
     $this->load->view('dashboard/_partials/sidebar');
@@ -39,8 +38,7 @@ class Order extends CI_Controller {
 		$urgensi = $this->input->post('urgensi');
 		$nama = $this->input->post('nama');
 		$nama_kerja = $this->input->post('nama_kerja');
-		$kategori = $this->input->post('kategori');
-		$id_barang  = $this->input->post('id_barang');
+		$id_barang  = $this->input->post('id_bahan');
 		$jumlah = $this->input->post('jumlah');
 		$panjang = $this->input->post('panjang');
 		$lebar = $this->input->post('lebar');
@@ -48,7 +46,6 @@ class Order extends CI_Controller {
 		$harga_bahan = $this->input->post('harga_bahan');
 		$dp_awal = $this->input->post('dp_awal');
 		$catatan = $this->input->post('catatan');
-		$finishing = $this->input->post('finishing');
 
 		$hapusSelainAngka_biayaDesign = preg_replace('/[^0-9]/', '', $biaya_design);
 		$hapusSelainAngka_hargaBahan = preg_replace('/[^0-9]/', '', $harga_bahan);
@@ -65,7 +62,58 @@ class Order extends CI_Controller {
 	$this->load->library('upload', $config);
 
 	if ( ! $this->upload->do_upload('berkas')){
-	$data['error'] = $this->upload->display_errors();
+		$where = [
+			'id_order' => $id_order
+		];
+	
+		
+	
+			
+			$data = array(
+				'id_order' => $id_order,
+				'tgl_order' => $tgl_order,
+				'no_po' => $no_po,
+				'no_inv' => $no_inv,
+				'nama_kerja' => $nama_kerja,
+				'urgensi' => $urgensi,
+				'nama' => $nama,
+				'id_barang' => $id_barang,
+				'jumlah' => $jumlah,
+				'panjang' => $panjang,
+				'lebar' => $lebar,
+				'biaya_design' => $hapusSelainAngka_biayaDesign,
+				'harga_bahan' => $hapusSelainAngka_hargaBahan,
+				'dp_awal' => $hapusSelainAngka_dpAwal,
+				'catatan' => $catatan,
+				'finishing' => 'cutting',
+				'status' => 0,
+				'status_bayar' => 0
+				);
+			
+				$this->load->library('ciqrcode');
+	
+			$config['cacheable']    = true; //boolean, the default is true
+			  $config['cachedir']     = './assets/'; //string, the default is application/cache/
+			  $config['errorlog']     = './assets/'; //string, the default is application/logs/
+			  $config['imagedir']     = './assets/qrcache/'; //direktori penyimpanan qr code
+			  $config['quality']      = true; //boolean, the default is true
+			  $config['size']         = '1024'; //interger, the default is 1024
+			  $config['black']        = array(224,255,255); // array, default is array(255,255,255)
+			  $config['white']        = array(70,130,180); // array, default is array(0,0,0)
+			$this->ciqrcode->initialize($config);
+	
+		$image_name=$id_order.'.png'; //buat name dari qr code sesuai dengan nim
+	 
+		$params['data'] = $id_order; //data yang akan di jadikan QR CODE
+		$params['level'] = 'H'; //H=High
+		$params['size'] = 10;
+		$params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
+		$this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
+	
+			$this->Model_order->input_data($data,'orderan');
+			$this->session->set_flashdata('order_berhasil', ' ');
+			redirect('Order/input_order');
+		
 	echo $data['error'];
 	}else{
 
@@ -88,7 +136,6 @@ class Order extends CI_Controller {
 			'nama_kerja' => $nama_kerja,
 			'urgensi' => $urgensi,
 			'nama' => $nama,
-			'kategori' => $kategori,
 			'id_barang' => $id_barang,
 			'jumlah' => $jumlah,
 			'panjang' => $panjang,
@@ -98,7 +145,7 @@ class Order extends CI_Controller {
 			'harga_bahan' => $hapusSelainAngka_hargaBahan,
 			'dp_awal' => $hapusSelainAngka_dpAwal,
 			'catatan' => $catatan,
-			'finishing' => $finishing,
+			'finishing' => 'cutting',
 			'status' => 0,
 			'status_bayar' => 0
 			);

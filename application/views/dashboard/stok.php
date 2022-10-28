@@ -37,7 +37,6 @@
 		<table id="example" class="display" style="width:100%">
 			<thead>
 				<tr>
-					<th>Kategori</th>
 					<th>Nama Bahan</th>
 					<th>Stok</th>
 				</tr>
@@ -45,7 +44,6 @@
 			<tbody>
 				<?php foreach ($allPembayaran as $b) : ?>
 					<tr>
-						<td><?= $b->nama_kategori ?></td>
 						<td><?= $b->nama_bahan ?></td>
 						<?php if ($b->stok == 0) : ?>
 							<td style="color: red">Stok Habis</td>

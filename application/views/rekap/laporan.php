@@ -12,7 +12,6 @@
             <tr>
                <th>Nama Pekerjaan</th>
                <th>Nama Customer</th>
-               <th>Kategori</th>
                <th>Bahan</th>
                <th>Tanggal Order</th>
                <th>Qty</th>
@@ -28,7 +27,6 @@
                <tr>
                   <td><?= $b->nama_kerja ?></td>
                   <td><?= $b->nama_customer ?></td>
-                  <td><?= $b->nama_kategori ?></td>
                   <td><?= $b->nama_bahan ?></td>
                   <td><?= $b->tgl_order ?></td>
                   <td><?= $b->jumlah ?></td>

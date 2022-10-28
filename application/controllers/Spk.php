@@ -20,35 +20,25 @@ class Spk extends CI_Controller {
 	
 	}
 
-	public function a3()
+	public function printing()
 	{
-	$data['orderMasuk'] = $this->Model_spk->getReadya3()->result();
+	$data['orderMasuk'] = $this->Model_spk->getReadyPrinting()->result();
 	$this->load->view('dashboard/_partials/header');
 	$this->load->view('dashboard/_partials/sidebar');
-	$this->load->view('spk/a3', $data);				
+	$this->load->view('spk/printing', $data);				
 	$this->load->view('dashboard/_partials/footer');
 	}
 
-	public function indoor()
+	public function heating()
 	{
-	$data['orderMasuk'] = $this->Model_spk->getReadyIndoor()->result();
+	$data['orderMasuk'] = $this->Model_spk->getReadyHeating()->result();
 	$this->load->view('dashboard/_partials/header');
 	$this->load->view('dashboard/_partials/sidebar');
-	$this->load->view('spk/indoor', $data);				
+	$this->load->view('spk/heating', $data);				
 	$this->load->view('dashboard/_partials/footer');
 	}
 
-	public function outdoor()
-	{
-	$data['orderMasuk'] = $this->Model_spk->getReadyOutdoor()->result();
-	$this->load->view('dashboard/_partials/header');
-	$this->load->view('dashboard/_partials/sidebar');
-	$this->load->view('spk/outdoor', $data);				
-	$this->load->view('dashboard/_partials/footer');
-	}
-
-
-	function ambil_kerja_a3(){
+	function ambil_kerja_printing(){
 
 	$id_order = $this->input->post('id_order');
 	$spk = $this->session->userdata('username');
@@ -65,8 +55,25 @@ class Spk extends CI_Controller {
 	);
 
 	$this->Model_spk->update_order_produksi($where,$data,'orderan');
-	$this->session->set_flashdata('update_berhasil', ' ');
-	redirect('Beranda');
+	$this->session->set_flashdata('printing_selesai', ' ');
+	redirect('Spk/printing');
+}
+
+function ambil_kerja_heating(){
+
+	$id_order = $this->input->post('id_order');
+
+	$data = array(
+		'status' => 3,
+		);
+
+	$where = array(
+		'id_order' => $id_order
+	);
+
+	$this->Model_spk->update_order_produksi($where,$data,'orderan');
+	$this->session->set_flashdata('heating_selesai', ' ');
+	redirect('Spk/heating');
 }
 
 public function download($file,$filename = NULL)

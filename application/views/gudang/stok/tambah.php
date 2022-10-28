@@ -10,29 +10,21 @@
 	<form action="<?= base_url('Gudang/insert_pembelian'); ?>" method="post">
 		<div class="row">
 
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<div class="form-group">
 					<label for="last">NOMER PO</label>
 					<input type="text" class="form-control" name="no_po">
 				</div>
 			</div>
 
-			<div class="col-md-4">
+			<div class="col-md-6">
 				<div class="form-group">
-					<label for="last">Kategori</label>
-					<select class="form-control" name="kategori" id="kategori" onchange="return cariKategori();" required><?php foreach ($kategori as $i) { ?>
-							<option selected disabled>-- PILIH KATEGORI --</option>
-							<option value="<?php echo $i['id']; ?>"><?php echo $i['nama_kategori']; ?></option>
+					<label for="last">Bahan</label>
+					<select class="form-control" name="id_bahan" id="id_bahan" required>
+						<option selected disabled>-- PILIH BAHAN --</option>
+						<?php foreach ($bahanBaku as $k) { ?>
+							<option value="<?php echo $k['id_bahan']; ?>"><?php echo $k['nama_bahan']; ?></option>
 						<?php } ?>
-					</select>
-				</div>
-			</div>
-
-			<div class="col-md-4">
-				<div class="form-group">
-					<label for="last">Bahan Baku</label>
-					<select class="form-control" id="id" name="id_barang" required>
-
 					</select>
 				</div>
 			</div>
@@ -75,29 +67,3 @@
 		</div>
 	</div>
 </div>
-
-<script>
-	function cariKategori() {
-		var kategori = document.getElementById('kategori').value;
-		$.ajax({
-			url: "<?= base_url() ?>Order/cariBahan/" + kategori,
-			data: '&kategori=' + kategori,
-
-			success: function(result) {
-				var data = JSON.parse(result);
-				var i;
-				var html = '';
-				var $select = $("#id").selectize();
-				var selectize = $select[0].selectize;
-				selectize.clearOptions();
-				for (i = 0; i < data.length; i++) {
-					// html += '<option value="' + data[i].id_bahan + '">' + data[i].nama_bahan + '</option>';
-					selectize.addOption([{
-						text: data[i].nama_bahan,
-						value: data[i].id_bahan
-					}]);
-				}
-			}
-		})
-	}
-</script>
