@@ -33,9 +33,11 @@
 			<thead>
 				<tr>
 					<th>Status Urgensi</th>
+					<th>Nama Pekerjaan</th>
 					<th>Nama Customer</th>
 					<th>Tanggal Order</th>
 					<th>Qty</th>
+					<th>Status Bayar</th>
 					<th>Action</th>
 				</tr>
 			</thead>
@@ -44,9 +46,7 @@
 				foreach ($finishPacking as $b) {
 				?>
 					<tr>
-						<td><?php
-								$favcolor = $b->urgensi;
-
+						<td><?php $favcolor = $b->urgensi;
 								switch ($favcolor) {
 									case "1":
 										echo "<button class='btn btn-sm btn-danger'>SEGERA DIKERJAKAN</button>";
@@ -54,10 +54,26 @@
 									default:
 										echo "Tidak";
 								}
-								?></td>
+								?>
+						</td>
+						<td><?= $b->nama_kerja ?></td>
 						<td><?= $b->nama_customer ?></td>
 						<td><?= $b->tgl_order ?></td>
 						<td><?= $b->jumlah ?></td>
+						<td><?php $favcolor = $b->status_bayar;
+								switch ($favcolor) {
+									case "0":
+										echo "<button class='btn btn-sm btn-danger'>Belum Lunas</button>";
+										break;
+									case "1":
+										echo "<button class='btn btn-sm btn-success'>Sudah Lunas</button>";
+										break;
+
+									default:
+										echo "Tidak";
+								}
+								?>
+						</td>
 						<td>
 							<a class="btn btn-sm btn-primary" href="<?= base_url('Finishing/finishing_packing/' . $b->id_order) ?>">Selesaikan Packing</a>
 						</td>

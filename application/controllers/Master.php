@@ -287,7 +287,7 @@ class Master extends CI_Controller
 		$nama_karyawan = $this->input->post('nama');
 		$username = $this->input->post('username');
 		$password = $this->input->post('password');
-		$role = 5;
+		$role = $this->input->post('role');
 
 		$data = array(
 			'id_user' => $id,
