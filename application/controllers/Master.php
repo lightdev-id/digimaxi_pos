@@ -55,22 +55,8 @@ class Master extends CI_Controller
 		$this->load->view('dashboard/_partials/footer');
 	}
 
-	public function kategori()
-	{
-		$data['kategori'] = $this->Model_master->getKategori()->result();;
-		$this->load->view('dashboard/_partials/header');
-		$this->load->view('dashboard/_partials/sidebar');
-		$this->load->view('master/kategori', $data);
-		$this->load->view('dashboard/_partials/footer');
-	}
-
-
-
 	public function edit_bahan($id_bahan)
 	{
-
-		$data['kategori'] = $this->Model_order->get_kategori();
-
 		$where = array('id_bahan' => $id_bahan);
 		$data['bahan'] = $this->Model_master->edit_data_bahan($where, 'bahan')->result();
 		$this->load->view('dashboard/_partials/header');
@@ -81,9 +67,7 @@ class Master extends CI_Controller
 
 	function update_bahan()
 	{
-
 		$id_bahan = $this->input->post('id_bahan');
-		$id_kategori = $this->input->post('kategori');
 		$nama_bahan = $this->input->post('nama_bahan');
 		$harga_beli = $this->input->post('harga_beli');
 		$harga_jual = $this->input->post('harga_jual');
@@ -92,7 +76,6 @@ class Master extends CI_Controller
 			'harga_beli' => $harga_beli,
 			'nama_bahan' => $nama_bahan,
 			'harga_jual' => $harga_jual,
-			'id_kategori' => $id_kategori
 		);
 
 		$where = array(
@@ -106,18 +89,15 @@ class Master extends CI_Controller
 
 	public function tambah_bahan()
 	{
-		$data['kategori'] = $this->Model_order->get_kategori();
-
 		$this->load->view('dashboard/_partials/header');
 		$this->load->view('dashboard/_partials/sidebar');
-		$this->load->view('master/create/tambah_bahan', $data);
+		$this->load->view('master/create/tambah_bahan');
 		$this->load->view('dashboard/_partials/footer');
 	}
 
 	public function bahan_save()
 	{
 		$id = uniqid();
-		$id_kategori = $this->input->post('id_kategori');
 		$nama_bahan = $this->input->post('nama_bahan');
 		$harga_beli = $this->input->post('harga_beli');
 		$harga_jual = $this->input->post('harga_jual');
@@ -127,7 +107,6 @@ class Master extends CI_Controller
 
 		$data = array(
 			'id_bahan' => $id,
-			'id_kategori' => $id_kategori,
 			'nama_bahan' => $nama_bahan,
 			'harga_beli' => $hapusSelainAngka_harga_beli,
 			'harga_jual' => $hapusSelainAngka_harga_jual
@@ -292,68 +271,6 @@ class Master extends CI_Controller
 		$this->Model_master->hapus_data($where, 'customer');
 		$this->session->set_flashdata('hapus-berhasil', ' ');
 		redirect('Master/konsumen');
-	}
-
-	public function tambah_kategori()
-	{
-		$this->load->view('dashboard/_partials/header');
-		$this->load->view('dashboard/_partials/sidebar');
-		$this->load->view('master/create/tambah_kategori');
-		$this->load->view('dashboard/_partials/footer');
-	}
-
-	public function kategori_save()
-	{
-		$id = uniqid();
-		$nama_kategori = $this->input->post('nama_kategori');
-
-		$data = array(
-			'id' => $id,
-			'nama_kategori' => $nama_kategori
-		);
-
-		$this->Model_master->insert_data($data, 'kategori');
-		$this->session->set_flashdata('input-berhasil', ' ');
-		redirect('Master/kategori');
-	}
-
-	public function edit_kategori($id_kategori)
-	{
-
-		$data['kategori'] = $this->Model_master->getKategori();
-		$where = array('id' => $id_kategori);
-		$data['kategori'] = $this->Model_master->edit_data_kategori($where, 'kategori')->result();
-
-		$this->load->view('dashboard/_partials/header');
-		$this->load->view('dashboard/_partials/sidebar');
-		$this->load->view('master/edit/edit_kategori', $data);
-		$this->load->view('dashboard/_partials/footer');
-	}
-
-	public function update_kategori()
-	{
-		$id = $this->input->post('id');
-		$nama_kategori = $this->input->post('nama_kategori');
-
-		$data = array(
-			'nama_kategori' => $nama_kategori
-		);
-
-		$where = array(
-			'id' => $id
-		);
-
-		$this->Model_master->update_data($where, $data, 'kategori');
-		$this->session->set_flashdata('update-berhasil', ' ');
-		redirect('Master/kategori');
-	}
-
-	public function hapus_kategori($id_kategori)
-	{
-		$where = array('id' => $id_kategori);
-		$this->Model_master->hapus_data($where, 'kategori');
-		$this->session->set_flashdata('hapus-berhasil', ' ');
-		redirect('Master/kategori');
 	}
 
 	public function tambah_karyawan()

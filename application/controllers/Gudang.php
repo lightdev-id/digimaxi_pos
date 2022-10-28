@@ -99,7 +99,6 @@ class Gudang extends CI_Controller {
 		if ($b->num_rows() > 0) {
 			$this->db->where('id_barang', $id_barang);
 			$this->Model_gudang->input_data($data, 'pembelian');
-			$this->Model_gudang->input_data($data2, 'stok');
 			$this->session->set_flashdata('pembelian_sukses', ' ');
 			redirect('Beranda/stok');
 		} else {;

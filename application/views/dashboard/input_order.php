@@ -150,7 +150,7 @@
 		<div class="col-md-3">
 			<div class="form-group">
 				<label for="last">Jumlah Order</label>
-				<input class="form-control" onchange="return autofill();" onkeyup="return cekBanyakStok()" id="id_bahan" type="number" min="1" value="1" name="jumlah" required>
+				<input class="form-control" onchange="return autofill();" onkeyup="return cekBanyakStok()" id="jumlah" type="number" min="1" value="1" name="jumlah" required>
 			</div>
 		</div>
 		<div class="col-md-12">
@@ -279,7 +279,7 @@
 			success: function(result) {
 				var data = JSON.parse(result);
 
-				if (parseInt(data[0].stok) < parseInt(document.getElementById('id_bahan').value)) {
+				if (parseInt(data[0].stok) < parseInt(document.getElementById('jumlah').value)) {
 					Swal.fire({
 						icon: 'warning',
 						title: 'Jumlah Order Melebihi Stok!',
@@ -314,7 +314,7 @@
 
 					var panjang = parseInt(document.getElementById('panjang').value);
 					var lebar = parseInt(document.getElementById('lebar').value);
-					var jumlah = parseInt(document.getElementById('id_bahan').value);
+					var jumlah = parseInt(document.getElementById('jumlah').value);
 					var hrgJual = parseInt(hasil[0].harga_jual);
 
 

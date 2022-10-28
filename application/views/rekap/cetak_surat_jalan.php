@@ -71,6 +71,10 @@
 						<td class="text-right" width="180px">Plat Nomor : <?= $rekapDetail->plat_nomor ?></td>
 					</tr>
 					<tr>
+						<td>No. HP</td>
+						<td>: <?= $rekapDetail->no_hp ?></td>
+					</tr>
+					<tr>
 						<td>Alamat Kirim</td>
 						<td>: <?= $rekapDetail->alamat ?></td>
 					</tr>

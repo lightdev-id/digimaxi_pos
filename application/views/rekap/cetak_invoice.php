@@ -68,6 +68,9 @@
 						<td></td>
 					</tr>
 					<tr>
+						<td><?= $rekapDetail->no_hp ?></td>
+					</tr>
+					<tr>
 						<td><?= $rekapDetail->alamat ?></td>
 					</tr>
 				</table>

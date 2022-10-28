@@ -29,26 +29,24 @@
 		<form action="<?php echo base_url() . 'Beranda/update_surat_jalan'; ?>" method="post">
 			<input type="hidden" name="id_order" value="<?php echo $u->id_order ?>">
 			<div class="row">
+
+				<div class="col-md-3">
+					<div class="form-group">
+						<label for="last">Nama Customer</label>
+						<input class="form-control" type="text" name="harga_jual" value="<?php echo $u->nama_customer ?>" readonly>
+					</div>
+				</div>
+
+			</div>
+
+			<div class="row">
+
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="last">Nama Pekerjaan</label>
 						<input type="text" name="nama_bahan" value="<?= $u->nama_kerja ?>" class="form-control" readonly>
 					</div>
-
-
-
 				</div>
-
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="last">Kategori</label>
-						<select class="form-control" name="kategori" disabled><?php foreach ($kategori as $i) { ?>
-								<option value="<?php echo $i['id']; ?>" readonly><?php echo $i['nama_kategori']; ?></option>
-							<?php } ?>
-						</select>
-					</div>
-				</div>
-
 
 				<div class="col-md-3">
 					<div class="form-group">
@@ -56,22 +54,18 @@
 						<input class="form-control" type="date" name="harga_beli" value="<?php echo $u->tgl_order ?>" readonly>
 					</div>
 				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="last">Jumlah</label>
-						<input class="form-control" type="number" name="harga_jual" value="<?php echo $u->jumlah ?>" readonly>
-					</div>
-				</div>
-				<div class="col-md-3">
-					<div class="form-group">
-						<label for="last">Nama Customer</label>
-						<input class="form-control" type="text" name="harga_jual" value="<?php echo $u->nama_customer ?>" readonly>
-					</div>
-				</div>
+
 				<div class="col-md-3">
 					<div class="form-group">
 						<label for="last">Bahan Baku</label>
 						<input class="form-control" type="text" name="harga_jual" value="<?php echo $u->nama_bahan ?>" readonly>
+					</div>
+				</div>
+
+				<div class="col-md-3">
+					<div class="form-group">
+						<label for="last">Jumlah</label>
+						<input class="form-control" type="number" name="harga_jual" value="<?php echo $u->jumlah ?>" readonly>
 					</div>
 				</div>
 			</div>
