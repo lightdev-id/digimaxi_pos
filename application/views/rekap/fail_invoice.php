@@ -149,8 +149,6 @@
 
 									<br>
 
-									<b>Kategori</b><br />
-									<?= $rekapDetail->nama_kategori ?><br />
 								</td>
 							</tr>
 						</table>

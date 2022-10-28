@@ -249,7 +249,7 @@
 
 			success: function(result) {
 				var data = JSON.parse(result);
-
+				console.log(data);
 				console.log(data.length);
 
 				if (data.length == 0) {

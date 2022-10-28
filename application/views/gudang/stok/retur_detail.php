@@ -15,9 +15,6 @@
                   <div class="col-12 table-responsive">
                      <table class="table table-hover table-bordered">
                            <tr>
-                              <td><strong>Kategori</strong></td>
-                              <td><?= $returDetail->nama_kategori ?></td>
-                           <tr>
                               <td><strong>Nama Bahan</strong></td>
                               <td><?= $returDetail->nama_bahan ?></td>
                            </tr>

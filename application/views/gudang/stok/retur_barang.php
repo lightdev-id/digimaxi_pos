@@ -28,13 +28,6 @@
 
          <div class="col-md-3">
             <div class="form-group">
-               <label for="last">NAMA BAHAN</label>
-               <input type="text" class="form-control" name="id_kategori" value="<?= $barangRetur->nama_kategori ?>" disabled>
-            </div>
-         </div>
-
-         <div class="col-md-3">
-            <div class="form-group">
                <label for="last">JUMLAH BARANG</label>
                <input type="text" class="form-control" name="stok_lama" value="<?= $barangRetur->jumlah ?>" readonly>
             </div>

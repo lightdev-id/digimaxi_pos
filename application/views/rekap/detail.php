@@ -32,10 +32,6 @@
                            <td><?= $rekapDetail->email ?></td>
                         </tr>
                         <tr>
-                           <td><strong>Kategori</strong></td>
-                           <td><?= $rekapDetail->nama_kategori ?></td>
-                        </tr>
-                        <tr>
                            <td><strong>Bahan</strong></td>
                            <td><?= $rekapDetail->nama_bahan ?></td>
                         </tr>

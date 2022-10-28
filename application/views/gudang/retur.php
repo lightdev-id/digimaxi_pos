@@ -12,7 +12,6 @@
         <thead>
             <tr>
                 <th>Nomor PO</th>
-                <th>Kategori</th>
                 <th>Nama Bahan</th>
                 <th>Tanggal Retur</th>
                 <th>Jumlah Retur</th>
@@ -25,7 +24,6 @@
             ?>
             <tr>
                 <td><?= $b->no_po ?></td>
-                <td><?= $b->nama_kategori ?></td>
                 <td><?= $b->nama_bahan ?></td>
                 <td><?= $b->tanggal_retur ?></td>
                 <td><?= $b->jumlah_retur ?></td>

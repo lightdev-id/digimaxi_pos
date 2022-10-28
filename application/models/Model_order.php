@@ -171,7 +171,6 @@ public function finishedJob()
     $this->db->where($kategori);
     $this->db->from('orderan');
     $this->db->join('customer','customer.id = orderan.nama');   
-     $this->db->join('kategori','orderan.kategori = kategori.id','LEFT');
      $this->db->join('bahan', 'orderan.id_barang = bahan.id_bahan');      
     $query = $this->db->get();
     return $query;
@@ -209,7 +208,6 @@ function get_kategori()
   $this->db->where($kategori);
     $this->db->from('orderan');
     $this->db->join('customer','customer.id = orderan.nama');
-    $this->db->join('kategori','orderan.kategori = kategori.id','LEFT');      
     $query = $this->db->get();
     return $query;
 }
