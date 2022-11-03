@@ -72,10 +72,13 @@ class Master extends CI_Controller
 		$harga_beli = $this->input->post('harga_beli');
 		$harga_jual = $this->input->post('harga_jual');
 
+		$hapusSelainAngka_harga_beli = preg_replace('/[^0-9]/', '', $harga_beli);
+		$hapusSelainAngka_harga_jual = preg_replace('/[^0-9]/', '', $harga_jual);
+
 		$data = array(
-			'harga_beli' => $harga_beli,
+			'harga_beli' => $hapusSelainAngka_harga_beli,
 			'nama_bahan' => $nama_bahan,
-			'harga_jual' => $harga_jual,
+			'harga_jual' => $hapusSelainAngka_harga_jual,
 		);
 
 		$where = array(
