@@ -21,7 +21,7 @@
 
          <div class="col-md-3">
             <div class="form-group">
-               <label for="last">KATEGORI</label>
+               <label for="last">NAMA BAHAN</label>
                <input type="text" class="form-control" name="nama_bahan" value="<?= $barangRetur->nama_bahan ?>" disabled>
             </div>
          </div>
@@ -47,7 +47,7 @@
             </div>
          </div>
 
-         <div class="col-6">
+         <div class="col-9">
             <div class="form-group">
                <label for="last">KETERANGAN</label>
                <textarea class="form-control mb-3" name="keterangan" id="keterangan" cols="30" rows="2"></textarea>
