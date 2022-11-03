@@ -128,6 +128,16 @@
 					<span class="input-group-text">cm</span>
 				</div>
 			</div>
+
+			<!-- <div class="col-md-2">
+			<label for="last">Panjang</label>
+			<div class="input-group mb-3">
+				<input class="form-control" onchange="return autofill();" id="panjang" type="number" name="panjang" required>
+				<select name="" id="" class="form-control">
+					<option selected>/ m</option>
+					<option>/ cm</option>
+				</select>
+			</div> -->
 		</div>
 
 		<div class="col-md-3">
@@ -138,6 +148,15 @@
 					<span class="input-group-text">cm</span>
 				</div>
 			</div>
+			<!-- <div class="col-md-2">
+			<label for="last">Lebar</label>
+			<div class="input-group mb-1">
+				<input class="form-control" onchange="return autofill();" id="lebar" type="number" name="lebar" required>
+				<select name="" id="" class="form-control">
+					<option selected>/ m</option>
+					<option>/ cm</option>
+				</select>
+			</div> -->
 		</div>
 	</div>
 
@@ -319,7 +338,7 @@
 
 
 					var totalUkuran = panjang + lebar;
-					var totalHargaSatuan = totalUkuran * hrgJual;
+					var totalHargaSatuan = totalUkuran * (hrgJual/100);
 					var totalSemua = totalHargaSatuan * jumlah;
 					console.log(totalUkuran);
 					console.log(totalSemua);

@@ -26,27 +26,6 @@ class Model_produksi extends CI_Model
 		return $query;
 	}
 
-	public function getCetakCutting()
-	{
-		$this->db->select('*');
-		$kategori = array('kategori' => '4', 'status' => 1);
-		$this->db->where($kategori);
-		$this->db->from('orderan');
-		$this->db->join('customer', 'customer.id = orderan.nama');
-		$query = $this->db->get();
-		return $query;
-	}
-
-	public function getCetakFinishing()
-	{
-		$this->db->select('*');
-		$kategori = array('kategori' => '5', 'status' => 1);
-		$this->db->where($kategori);
-		$this->db->from('orderan');
-		$this->db->join('customer', 'customer.id = orderan.nama');
-		$query = $this->db->get();
-		return $query;
-	}
 }
 
 /* End of file modelName.php */
