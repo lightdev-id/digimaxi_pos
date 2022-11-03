@@ -13,7 +13,7 @@
 			<div class="col-md-6">
 				<div class="form-group">
 					<label for="last">NOMER PO</label>
-					<input type="text" class="form-control" name="no_po">
+					<input type="text" class="form-control" name="no_po" required>
 				</div>
 			</div>
 
@@ -38,7 +38,7 @@
 
 			<div class="col-md-6">
 				<div class="form-group">
-					<label for="last">TANGGAL</label>
+					<label for="last">TANGGAL DATANG</label>
 					<input type="date" class="form-control" name="tanggal" required>
 				</div>
 			</div>
