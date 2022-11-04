@@ -41,7 +41,7 @@ class Login extends CI_Controller{
 			redirect(base_url("Beranda"));
 		}elseif ($status == 2) {
 			$this->session->set_flashdata('login_berhasil', ' ');
-			redirect(base_url("Spk/a3"));
+			redirect(base_url("Spk/printing"));
 		}elseif ($status == 3) {
 			$this->session->set_flashdata('login_berhasil', ' ');
 			redirect(base_url("Gudang"));
