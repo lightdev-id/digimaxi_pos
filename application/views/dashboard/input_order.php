@@ -123,40 +123,29 @@
 		<div class="col-md-3">
 			<label for="last">Panjang</label>
 			<div class="input-group mb-3">
-				<input class="form-control" onchange="return autofill();" id="panjang" type="number" name="panjang" required>
+				<input class="form-control" onkeyup="return autofill();" id="panjang" type="number" name="panjang" required>
 				<div class="input-group-append">
-					<span class="input-group-text">cm</span>
+					<span id="cmm1" class="input-group-text">m</span>
 				</div>
 			</div>
-
-			<!-- <div class="col-md-2">
-			<label for="last">Panjang</label>
-			<div class="input-group mb-3">
-				<input class="form-control" onchange="return autofill();" id="panjang" type="number" name="panjang" required>
-				<select name="" id="" class="form-control">
-					<option selected>/ m</option>
-					<option>/ cm</option>
-				</select>
-			</div> -->
 		</div>
+
 
 		<div class="col-md-3">
 			<label for="last">Lebar</label>
 			<div class="input-group mb-3">
-				<input class="form-control" onchange="return autofill();" id="lebar" type="number" name="lebar" required>
+				<input class="form-control" onkeyup="return autofill();" id="lebar" type="number" name="lebar" required>
 				<div class="input-group-append">
-					<span class="input-group-text">cm</span>
+					<span id="cmm2" class="input-group-text">m</span>
 				</div>
 			</div>
-			<!-- <div class="col-md-2">
-			<label for="last">Lebar</label>
-			<div class="input-group mb-1">
-				<input class="form-control" onchange="return autofill();" id="lebar" type="number" name="lebar" required>
-				<select name="" id="" class="form-control">
-					<option selected>/ m</option>
-					<option>/ cm</option>
-				</select>
-			</div> -->
+		</div>
+		<div class="col-md-3">
+			<label for="last">Satuan</label>
+			<select name="satuan" id="satuan" class="form-control" onchange="onChange(); autofill();">
+				<option value="m">/ m</option>
+				<option value="cm">/ cm</option>
+			</select>
 		</div>
 	</div>
 
@@ -169,7 +158,7 @@
 		<div class="col-md-3">
 			<div class="form-group">
 				<label for="last">Jumlah Order</label>
-				<input class="form-control" onchange="return autofill();" onkeyup="return cekBanyakStok()" id="jumlah" type="number" min="1" value="1" name="jumlah" required>
+				<input class="form-control" onkeyup="return autofill();" onkeyup="return cekBanyakStok()" id="jumlah" type="number" min="1" value="1" name="jumlah" required>
 			</div>
 		</div>
 		<div class="col-md-12">
@@ -311,8 +300,20 @@
 	}
 </script>
 <script>
-	function autofill() {
+	function onChange() {
+		let satuan = $("#satuan").val();
+		if (satuan == "m") {
+			$('#cmm1').text("m");
+			$('#cmm2').text("m");
+			return "m";
+		} else {
+			$('#cmm1').text("cm");
+			$('#cmm2').text("cm");
+			return "cm";
+		}
+	}
 
+	function autofill() {
 		const formatRupiah = (money) => {
 			return new Intl.NumberFormat('id-ID', {
 				style: 'currency',
@@ -328,25 +329,28 @@
 			success: function(data) {
 				var hasil = JSON.parse(data);
 
-
 				$.each(hasil, function(key, val) {
+
+					const isMeter = onChange() == "m";
 
 					var panjang = parseInt(document.getElementById('panjang').value);
 					var lebar = parseInt(document.getElementById('lebar').value);
 					var jumlah = parseInt(document.getElementById('jumlah').value);
 					var hrgJual = parseInt(hasil[0].harga_jual);
 
-
-					var totalUkuran = panjang + lebar;
-					var totalHargaSatuan = totalUkuran * (hrgJual/100);
-					var totalSemua = totalHargaSatuan * jumlah;
-					console.log(totalUkuran);
-					console.log(totalSemua);
-
-					document.getElementById('harga_jual').value = formatRupiah(totalHargaSatuan);
-					document.getElementById('harga_jual_semua').value = formatRupiah(totalSemua);
-
-
+					if (isMeter) {
+						var totalUkuran = panjang + lebar;
+						var totalHargaSatuan = totalUkuran * (hrgJual);
+						var totalSemua = totalHargaSatuan * jumlah; 
+						document.getElementById('harga_jual').value = formatRupiah(totalHargaSatuan);
+						document.getElementById('harga_jual_semua').value = formatRupiah(totalSemua);
+					} else {
+						var totalUkuran = panjang + lebar;
+						var totalHargaSatuan = totalUkuran * (hrgJual / 100);
+						var totalSemua = totalHargaSatuan * jumlah;
+						document.getElementById('harga_jual').value = formatRupiah(totalHargaSatuan);
+						document.getElementById('harga_jual_semua').value = formatRupiah(totalSemua);
+					}
 				});
 			}
 		});

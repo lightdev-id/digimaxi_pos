@@ -43,6 +43,7 @@ class Order extends CI_Controller
 		$jumlah = $this->input->post('jumlah');
 		$panjang = $this->input->post('panjang');
 		$lebar = $this->input->post('lebar');
+		$satuan = $this->input->post('satuan');
 		$biaya_design = $this->input->post('biaya_design');
 		$harga_bahan = $this->input->post('harga_bahan');
 		$dp_awal = $this->input->post('dp_awal');
@@ -82,6 +83,7 @@ class Order extends CI_Controller
 				'jumlah' => $jumlah,
 				'panjang' => $panjang,
 				'lebar' => $lebar,
+				'satuan' => $satuan,
 				'biaya_design' => $hapusSelainAngka_biayaDesign,
 				'harga_bahan' => $hapusSelainAngka_hargaBahan,
 				'dp_awal' => $hapusSelainAngka_dpAwal,
