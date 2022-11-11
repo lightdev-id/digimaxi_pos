@@ -45,11 +45,11 @@
 								</tr>
 								<tr>
 									<td><strong>Panjang</strong></td>
-									<td><?= $detailOrder->panjang ?> cm</td>
+									<td><?= $detailOrder->panjang ?> <?= $detailOrder->satuan ?></td>
 								</tr>
 								<tr>
 									<td><strong>Lebar</strong></td>
-									<td><?= $detailOrder->lebar ?> cm</td>
+									<td><?= $detailOrder->lebar ?> <?= $detailOrder->satuan ?></td>
 								</tr>
 								<tr>
 									<td><strong>Catatan</strong></td>

@@ -21,7 +21,7 @@ class Master extends CI_Controller
 
 	public function data_bahan()
 	{
-		$data['dataBahan'] = $this->Model_master->getDataBahan()->result();;
+		$data['dataBahan'] = $this->Model_master->getDataBahan()->result();
 		$this->load->view('dashboard/_partials/header');
 		$this->load->view('dashboard/_partials/sidebar');
 		$this->load->view('master/data_bahan', $data);
@@ -71,14 +71,20 @@ class Master extends CI_Controller
 		$nama_bahan = $this->input->post('nama_bahan');
 		$harga_beli = $this->input->post('harga_beli');
 		$harga_jual = $this->input->post('harga_jual');
+		$panjang_roll = $this->input->post('panjang_roll');
+		$lebar_roll = $this->input->post('lebar_roll');
+		$satuan = $this->input->post('satuan');
 
 		$hapusSelainAngka_harga_beli = preg_replace('/[^0-9]/', '', $harga_beli);
 		$hapusSelainAngka_harga_jual = preg_replace('/[^0-9]/', '', $harga_jual);
 
 		$data = array(
-			'harga_beli' => $hapusSelainAngka_harga_beli,
 			'nama_bahan' => $nama_bahan,
+			'harga_beli' => $hapusSelainAngka_harga_beli,
 			'harga_jual' => $hapusSelainAngka_harga_jual,
+			'panjang_roll' => $panjang_roll,
+			'lebar_roll' => $lebar_roll,
+			'satuan' => $satuan,
 		);
 
 		$where = array(
@@ -104,6 +110,10 @@ class Master extends CI_Controller
 		$nama_bahan = $this->input->post('nama_bahan');
 		$harga_beli = $this->input->post('harga_beli');
 		$harga_jual = $this->input->post('harga_jual');
+		$panjang_roll = $this->input->post('panjang_roll');
+		$lebar_roll = $this->input->post('lebar_roll');
+		$satuan = $this->input->post('satuan');
+
 
 		$hapusSelainAngka_harga_beli = preg_replace('/[^0-9]/', '', $harga_beli);
 		$hapusSelainAngka_harga_jual = preg_replace('/[^0-9]/', '', $harga_jual);
@@ -112,7 +122,10 @@ class Master extends CI_Controller
 			'id_bahan' => $id,
 			'nama_bahan' => $nama_bahan,
 			'harga_beli' => $hapusSelainAngka_harga_beli,
-			'harga_jual' => $hapusSelainAngka_harga_jual
+			'harga_jual' => $hapusSelainAngka_harga_jual,
+			'panjang_roll' => $panjang_roll,
+			'lebar_roll' => $lebar_roll,
+			'satuan' => $satuan,
 		);
 
 		$data2 = array(

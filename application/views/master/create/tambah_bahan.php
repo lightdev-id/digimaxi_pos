@@ -19,25 +19,55 @@
 
 			<div class="col-md-4">
 				<label for="last">HARGA BELI</label>
-				<div class="input-group mb-3">
+				<div class="form-group mb-3">
 					<input type="text" class="form-control" name="harga_beli" id="rupiah" required>
-					<div class="input-group-append">
-						<span class="input-group-text">/ m</span>
-					</div>
 				</div>
 			</div>
 
 			<div class="col-md-4">
 				<div class="form-group">
 					<label for="last">HARGA JUAL</label>
-					<div class="input-group mb-3">
-						<input type="text" class="form-control" name="harga_jual" id="RP" required>
-						<div class="input-group-append">
-							<span class="input-group-text">/ m</span>
-						</div>
+					<input type="text" class="form-control" name="harga_jual" id="RP" required>
+				</div>
+			</div>
+		</div>
+
+		<hr>
+		<div class="col-12 d-flex flex-row align-items-center justify-content-between pl-0">
+			<h5 class="mb-0">Masukkan Ukuran Roll</h5>
+		</div>
+		<hr>
+
+		<div class="form-row align-items-center">
+
+			<div class="col-md-3">
+				<label for="panjang">PANJANG</label>
+				<div class="input-group mb-2">
+					<input type="text" class="form-control" name="panjang_roll" required>
+					<div class="input-group-append">
+						<span id="cmm1" class="input-group-text">m</span>
 					</div>
 				</div>
 			</div>
+
+			<div class="col-md-3">
+				<label for="lebar">LEBAR</label>
+				<div class="input-group mb-2">
+					<input type="text" class="form-control" name="lebar_roll" required>
+					<div class="input-group-append">
+						<span id="cmm2" class="input-group-text">m</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-1">
+				<label for="last">Satuan</label>
+				<select name="satuan" id="satuan" class="form-control" onchange="return satuanCek()">
+					<option value="m" selected>m</option>
+					<option value="cm">cm</option>
+				</select>
+			</div>
+
 		</div>
 		<button class="btn btn-primary">Tambah Bahan</button>
 	</form>
@@ -62,6 +92,22 @@
 		</div>
 	</div>
 </div>
+
+<script>
+	function satuanCek() {
+		let satuan = $("#satuan").val();
+		console.log(satuan)
+		if (satuan == "m") {
+			$('#cmm1').text("m");
+			$('#cmm2').text("m");
+			return "m";
+		} else {
+			$('#cmm1').text("cm");
+			$('#cmm2').text("cm");
+			return "cm";
+		}
+	}
+</script>
 
 <script>
 	var rupiah = document.getElementById("rupiah");

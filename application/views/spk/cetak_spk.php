@@ -131,8 +131,8 @@
                   <tr>
                      <td><?= $orderDetail->nama_kerja ?></td>
                      <td><?= $orderDetail->nama_bahan ?></td>
-                     <td><?= $orderDetail->panjang ?> cm</td>
-                     <td><?= $orderDetail->lebar ?> cm</td>
+                     <td><?= $orderDetail->panjang ?> <?= $orderDetail->satuan ?></td>
+                     <td><?= $orderDetail->lebar ?> <?= $orderDetail->satuan ?></td>
                      <td><?= $orderDetail->jumlah ?></td>
                      <?php
                      $totalUkuran = $orderDetail->panjang + $orderDetail->lebar;

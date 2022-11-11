@@ -96,7 +96,7 @@
 		<div class="col-md-3">
 			<div class="form-group">
 				<label for="last">Bahan</label>
-				<select class="form-control" name="id_bahan" id="id_bahan" onchange="cekStok()" required>
+				<select class="form-control" name="id_bahan" id="id_bahan" onchange="cekStok(); cari_bahan();" required>
 					<option selected disabled>-- PILIH BAHAN --</option>
 					<?php foreach ($bahanBaku as $k) { ?>
 						<option value="<?php echo $k['id_bahan']; ?>"><?php echo $k['nama_bahan']; ?></option>
@@ -123,30 +123,39 @@
 		<div class="col-md-3">
 			<label for="last">Panjang</label>
 			<div class="input-group mb-3">
-				<input class="form-control" onkeyup="return autofill();" id="panjang" type="number" name="panjang" required>
+				<input class="form-control" onkeyup="autofill(); cari_bahan()" id="panjang" type="number" name="panjang" required>
 				<div class="input-group-append">
-					<span id="cmm1" class="input-group-text">m</span>
+					<div class="input-group-text" id="satuan_panjang"></div>
 				</div>
 			</div>
 		</div>
-
 
 		<div class="col-md-3">
 			<label for="last">Lebar</label>
 			<div class="input-group mb-3">
-				<input class="form-control" onkeyup="return autofill();" id="lebar" type="number" name="lebar" required>
+				<input class="form-control" onkeyup="autofill(); cari_bahan()" id="lebar" type="number" name="lebar" required>
 				<div class="input-group-append">
-					<span id="cmm2" class="input-group-text">m</span>
+					<div class="input-group-text" id="satuan_lebar"></div>
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3">
+
+		<div class="col-md-4">
+			<label for="last">Roll</label>
+			<div class="input-group mb-3">
+				<input class="form-control" type="text" name="panjang_roll" id="panjang_roll" value="0" readonly>
+				<div class="input-group-append">
+					<div class="input-group-text" id="ukuran_roll"></div>
+				</div>
+			</div>
+		</div>
+		<!-- <div class="col-md-3">
 			<label for="last">Satuan</label>
 			<select name="satuan" id="satuan" class="form-control" onchange="onChange(); autofill();">
 				<option value="m">/ m</option>
 				<option value="cm">/ cm</option>
 			</select>
-		</div>
+		</div> -->
 	</div>
 
 	<hr>
@@ -158,7 +167,7 @@
 		<div class="col-md-3">
 			<div class="form-group">
 				<label for="last">Jumlah Order</label>
-				<input class="form-control" onkeyup="return autofill();" onkeyup="return cekBanyakStok()" id="jumlah" type="number" min="1" value="1" name="jumlah" required>
+				<input class="form-control" onkeyup="autofill(); cekBanyakStok();" id="jumlah" type="number" min="1" value="1" name="jumlah" required>
 			</div>
 		</div>
 		<div class="col-md-12">
@@ -221,7 +230,6 @@
 
 		rupiah = split[1] != undefined ? rupiah + "," + split[1] : rupiah;
 		return prefix == undefined ? rupiah : rupiah ? "Rp " + rupiah : "";
-		console.log(rupiah);
 	}
 </script>
 <script>
@@ -257,8 +265,6 @@
 
 			success: function(result) {
 				var data = JSON.parse(result);
-				console.log(data);
-				console.log(data.length);
 
 				if (data.length == 0) {
 					Swal.fire({
@@ -300,19 +306,85 @@
 	}
 </script>
 <script>
-	function onChange() {
-		let satuan = $("#satuan").val();
-		if (satuan == "m") {
-			$('#cmm1').text("m");
-			$('#cmm2').text("m");
-			return "m";
-		} else {
-			$('#cmm1').text("cm");
-			$('#cmm2').text("cm");
-			return "cm";
-		}
-	}
+	function cari_bahan() {
+		var id_bahan = document.getElementById('id_bahan');
 
+		$.ajax({
+			url: "<?= base_url() ?>Order/cari_bahan/" + $('#id_bahan').val(),
+			data: '&id_bahan=' + id_bahan,
+			success: function(result) {
+				var data = JSON.parse(result);
+
+				var panjang = document.getElementById('panjang').value;
+				var lebar = document.getElementById('lebar').value;
+				let panjangKalkulasi = (data[0].panjang_roll) * (Math.ceil(panjang / data[0].panjang_roll));
+				let lebarKalkulasi = (data[0].lebar_roll) * (Math.ceil(lebar / data[0].lebar_roll));
+				let panjangBahan = parseInt(data[0].panjang_roll);
+				let lebarBahan = parseInt(data[0].lebar_roll);
+				let satuan = data[0].satuan;
+				let setengahPanjang = panjang / panjangKalkulasi;
+				let setengahLebar = lebar / lebarKalkulasi;
+				let setengah = 0.5;
+
+				if (panjang > panjangBahan) {
+					Swal.fire({
+						icon: 'error',
+						title: 'Maaf...',
+						text: 'Panjang tidak boleh lebih dari ketentuan ROLL!',
+						footer: 'Panjang: ' + panjangBahan + ' ' + satuan + ' | Lebar: ' + lebarBahan + ' ' + satuan
+					})
+				}
+
+				if (lebar > lebarBahan) {
+					// console.log(lebarBahan);
+					Swal.fire({
+						icon: 'error',
+						title: 'Maaf...',
+						text: 'Lebar tidak boleh lebih dari ketentuan ROLL!',
+						footer: 'Panjang: ' + panjangBahan + ' ' + satuan + ' | Lebar: ' + lebarBahan + ' ' + satuan
+					})
+				}
+
+				if (satuan == 'm') {
+					$('#satuan_panjang').text('m');
+					$('#satuan_lebar').text('m');
+					$('#ukuran_roll').text(panjangBahan + satuan + ' * ' + lebarBahan + satuan + ' /roll');
+
+					if (panjang == panjangKalkulasi || lebar == lebarKalkulasi) {
+						let jumlahRoll = (panjangKalkulasi / panjangBahan) * (lebarKalkulasi / lebarBahan);
+						$('#panjang_roll').val(jumlahRoll.toFixed(1));
+					} else if (setengahPanjang >= 0.5 || setengahLebar >= 0.5) {
+						let jumlahRoll = panjang / panjangBahan
+						let total = (Math.floor(jumlahRoll)) + setengah
+						$('#panjang_roll').val(total.toFixed(1));
+					} else {
+						let jumlahRoll = setengah
+						$('#panjang_roll').val(jumlahRoll.toFixed(1));
+					}
+
+				} else {
+					$('#satuan_panjang').text('cm');
+					$('#satuan_lebar').text('cm');
+					$('#ukuran_roll').text(panjangBahan + satuan + ' * ' + lebarBahan + satuan + ' /roll');
+
+					if (panjang == panjangKalkulasi || lebar == lebarKalkulasi) {
+						let jumlahRoll = panjangKalkulasi / panjangBahan
+						$('#panjang_roll').val(jumlahRoll.toFixed(1));
+					} else if (setengahPanjang >= 0.5 || setengahLebar >= 0.5) {
+						let jumlahRoll = panjang / panjangBahan
+						let total = (Math.floor(jumlahRoll)) + setengah
+						$('#panjang_roll').val(total.toFixed(1));
+					} else {
+						let jumlahRoll = setengah
+						$('#panjang_roll').val(jumlahRoll.toFixed(1));
+						console.log(setengah)
+					}
+				}
+			}
+		});
+	}
+</script>
+<script>
 	function autofill() {
 		const formatRupiah = (money) => {
 			return new Intl.NumberFormat('id-ID', {
@@ -331,26 +403,32 @@
 
 				$.each(hasil, function(key, val) {
 
-					const isMeter = onChange() == "m";
+					// const isMeter = onChange() == "m";
 
 					var panjang = parseInt(document.getElementById('panjang').value);
 					var lebar = parseInt(document.getElementById('lebar').value);
 					var jumlah = parseInt(document.getElementById('jumlah').value);
 					var hrgJual = parseInt(hasil[0].harga_jual);
 
-					if (isMeter) {
-						var totalUkuran = panjang + lebar;
-						var totalHargaSatuan = totalUkuran * (hrgJual);
-						var totalSemua = totalHargaSatuan * jumlah; 
-						document.getElementById('harga_jual').value = formatRupiah(totalHargaSatuan);
-						document.getElementById('harga_jual_semua').value = formatRupiah(totalSemua);
-					} else {
-						var totalUkuran = panjang + lebar;
-						var totalHargaSatuan = totalUkuran * (hrgJual / 100);
-						var totalSemua = totalHargaSatuan * jumlah;
-						document.getElementById('harga_jual').value = formatRupiah(totalHargaSatuan);
-						document.getElementById('harga_jual_semua').value = formatRupiah(totalSemua);
-					}
+					var totalUkuran = panjang + lebar;
+					var totalHargaSatuan = totalUkuran * (hrgJual);
+					var totalSemua = totalHargaSatuan * jumlah;
+					document.getElementById('harga_jual').value = formatRupiah(totalHargaSatuan);
+					document.getElementById('harga_jual_semua').value = formatRupiah(totalSemua);
+
+					// if (isMeter) {
+					// 	var totalUkuran = panjang + lebar;
+					// 	var totalHargaSatuan = totalUkuran * (hrgJual);
+					// 	var totalSemua = totalHargaSatuan * jumlah;
+					// 	document.getElementById('harga_jual').value = formatRupiah(totalHargaSatuan);
+					// 	document.getElementById('harga_jual_semua').value = formatRupiah(totalSemua);
+					// } else {
+					// 	var totalUkuran = panjang + lebar;
+					// 	var totalHargaSatuan = totalUkuran * (hrgJual / 100);
+					// 	var totalSemua = totalHargaSatuan * jumlah;
+					// 	document.getElementById('harga_jual').value = formatRupiah(totalHargaSatuan);
+					// 	document.getElementById('harga_jual_semua').value = formatRupiah(totalSemua);
+					// }
 				});
 			}
 		});
@@ -393,9 +471,6 @@
 					}]);
 
 				}
-
-
-				console.log(data[0].harga_beli);
 			}
 		})
 	}
@@ -407,7 +482,6 @@
 			url: "<?php echo base_url(); ?>/Rekap/genCode",
 			success: function(data) {
 				var hasil = JSON.parse(data);
-				console.log(hasil);
 				document.getElementById('no_inv').value = hasil;
 			}
 		});

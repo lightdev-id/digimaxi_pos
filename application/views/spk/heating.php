@@ -8,7 +8,7 @@
 	<script type="text/javascript">
 		let timerInterval
 		Swal.fire({
-			title: 'Heaating Selesai!',
+			title: 'Heating Selesai!',
 			html: 'Segera Lakukan Heating pada Produksi!',
 			icon: 'success',
 			timer: 1500,

@@ -43,7 +43,7 @@ class Order extends CI_Controller
 		$jumlah = $this->input->post('jumlah');
 		$panjang = $this->input->post('panjang');
 		$lebar = $this->input->post('lebar');
-		$satuan = $this->input->post('satuan');
+		$panjang_roll = $this->input->post('panjang_roll');
 		$biaya_design = $this->input->post('biaya_design');
 		$harga_bahan = $this->input->post('harga_bahan');
 		$dp_awal = $this->input->post('dp_awal');
@@ -52,9 +52,6 @@ class Order extends CI_Controller
 		$hapusSelainAngka_biayaDesign = preg_replace('/[^0-9]/', '', $biaya_design);
 		$hapusSelainAngka_hargaBahan = preg_replace('/[^0-9]/', '', $harga_bahan);
 		$hapusSelainAngka_dpAwal = preg_replace('/[^0-9]/', '', $dp_awal);
-
-
-
 
 		$config['upload_path']          = FCPATH . '/assets/data/';
 		$config['allowed_types']        = '*';
@@ -68,9 +65,6 @@ class Order extends CI_Controller
 				'id_order' => $id_order
 			];
 
-
-
-
 			$data = array(
 				'id_order' => $id_order,
 				'tgl_order' => $tgl_order,
@@ -83,7 +77,7 @@ class Order extends CI_Controller
 				'jumlah' => $jumlah,
 				'panjang' => $panjang,
 				'lebar' => $lebar,
-				'satuan' => $satuan,
+				'panjang_roll' => $panjang_roll,
 				'biaya_design' => $hapusSelainAngka_biayaDesign,
 				'harga_bahan' => $hapusSelainAngka_hargaBahan,
 				'dp_awal' => $hapusSelainAngka_dpAwal,
@@ -143,6 +137,7 @@ class Order extends CI_Controller
 				'jumlah' => $jumlah,
 				'panjang' => $panjang,
 				'lebar' => $lebar,
+				'panjang_roll' => $panjang_roll,
 				'file' => $data_foto,
 				'biaya_design' => $hapusSelainAngka_biayaDesign,
 				'harga_bahan' => $hapusSelainAngka_hargaBahan,
@@ -199,6 +194,12 @@ class Order extends CI_Controller
 		$this->load->view('dashboard/_partials/sidebar');
 		$this->load->view('dashboard/detail_order', $data);
 		$this->load->view('dashboard/_partials/footer');
+	}
+
+	public function cari_bahan($id_bahan)
+	{
+		$cariBahan = $this->Model_order->cari_bahan($id_bahan);
+		echo json_encode($cariBahan);
 	}
 }
 

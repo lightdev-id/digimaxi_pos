@@ -96,8 +96,8 @@
 							<td><?= $rekapDetail->nama_kerja ?></td>
 							<td><?= $rekapDetail->nama_bahan ?></td>
 							<td><?= 'Rp. ' . number_format($rekapDetail->harga_jual, 0, ',', '.') ?></td>
-							<td><?= $rekapDetail->panjang ?> cm</td>
-							<td><?= $rekapDetail->lebar ?> cm</td>
+							<td><?= $rekapDetail->panjang ?> <?= $rekapDetail->satuan ?></td>
+							<td><?= $rekapDetail->lebar ?> <?= $rekapDetail->satuan ?></td>
 							<td><?= $rekapDetail->jumlah ?></td>
 							<?php
 							$totalUkuran = $rekapDetail->panjang + $rekapDetail->lebar;

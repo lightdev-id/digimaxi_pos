@@ -120,6 +120,14 @@ class Produksi extends CI_Controller
 		$this->session->set_flashdata('heating_selesai', ' ');
 		redirect('Produksi/heating');
 	}
+
+	public function surat_utang($id_order)
+	{
+		$data['orderUtang'] = $this->Model_produksi->getDetailUtang($id_order);
+		$this->load->view('dashboard/_partials/header');
+		$this->load->view('rekap/cetak_surat_utang', $data);
+	}
+	
 }
 
 /* End of file Produksi.php */

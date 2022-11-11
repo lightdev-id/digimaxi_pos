@@ -172,6 +172,12 @@ class Model_order extends CI_Model
 	{
 		return $this->db->select('*')->from($table)->join('customer', 'customer.id=orderan.nama')->join('bahan', 'bahan.id_bahan=orderan.id_barang')->where($where)->get();
 	}
+
+	public function cari_bahan($id)
+	{
+		$query = $this->db->get_where('bahan', array('id_bahan' => $id));
+		return $query->result();
+	}
 }
 
 /* End of file Model_order.php */

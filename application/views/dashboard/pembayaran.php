@@ -14,11 +14,30 @@
 			willClose: () => {
 				clearInterval(timerInterval)
 			}
-
 		})
 	</script>
 	<?= $this->session->flashdata('kerja_selesai') ?>
+<?php endif ?>
 
+<?php if ($this->session->flashdata('surat_utang_berhasil')) : ?>
+	<script type="text/javascript">
+		let timerInterval
+		Swal.fire({
+			title: 'Input Surat Utang Sukses!',
+			html: 'Silahkan di Kirimkan dengan Email!',
+			icon: 'success',
+			timer: 1500,
+
+			didOpen: () => {
+				Swal.showLoading()
+				const b = Swal.getHtmlContainer().querySelector('b')
+			},
+			willClose: () => {
+				clearInterval(timerInterval)
+			}
+		})
+	</script>
+	<?= $this->session->flashdata('surat_utang_berhasil') ?>
 <?php endif ?>
 
 <script type="text/javascript">
@@ -69,11 +88,36 @@
 							} ?>
 					</td>
 					<td>
-						<a href="<?= base_url('Order/detail_order/' . $b->id_order) ?>" class="btn btn-sm btn-success">Detail Pesanan</a>
-						<a class="btn btn-sm btn-primary" href="<?= base_url('produksi/konfirmasi_bayar/' . $b->id_order) ?>">Konfirmasi Pembayaran</a>
+						<a href="<?= base_url('Order/detail_order/' . $b->id_order) ?>" class="btn btn-sm btn-success mb-1">Detail Pesanan</a>
+						<?php if ($b->ket_surat_utang == null && $b->dp_awal > 0) : ?>
+							<a class="btn btn-sm btn-info mb-1" href="<?= base_url('rekap/input_surat_utang/' . $b->id_order) ?>">Input Surat Utang</a><br>
+						<?php elseif ($b->dp_awal == 0) : ?>
+							<button class="btn btn-sm btn-info mb-1">Bayar Cash</button>
+						<?php else : ?>
+							<a class="btn btn-sm btn-info mb-1" href="<?= base_url('produksi/surat_utang/' . $b->id_order) ?>">Cetak Surat Utang</a><br>
+						<?php endif ?>
+						<a class="btn btn-sm btn-warning mb-1" href="<?= base_url('produksi/kirim_email/' . $b->id_order) ?>">Kirim Email</a>
+						<a class="btn btn-sm btn-primary mb-1" href="<?= base_url('produksi/konfirmasi_bayar/' . $b->id_order) ?>">Konfirmasi Pembayaran</a>
 					</td>
 				</tr>
 			<?php } ?>
 		</tbody>
 	</table>
 </div>
+
+
+<script>
+	function cariSuratUtang() {
+		var id_order = document.getElementById('id_order');
+		var id_order = id_order.value;
+		console.log(id_order);
+
+		$.ajax({
+			url: "<?= base_url('Rekap/cari_surat_utang/') ?>" + id_order,
+			data: '&id_order=' + id_order,
+			success: function(data) {
+				console.log(data);
+			}
+		});
+	}
+</script>

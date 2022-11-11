@@ -31,6 +31,8 @@ class Beranda extends CI_Controller
 
 		$this->load->model('Login_model');
 		$this->load->model('Model_order');
+		$this->load->model('Model_produksi');
+		$this->load->model('Model_rekap');
 	}
 
 	public function index()
